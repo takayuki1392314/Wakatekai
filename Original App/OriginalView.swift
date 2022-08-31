@@ -16,3 +16,10 @@ struct originalApp: App {
         }
     }
 }
+
+struct OriginalView: View {
+    var body: some View {
+        Text("Topページ")
+    }
+}
+

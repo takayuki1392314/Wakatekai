@@ -21,8 +21,8 @@ struct RecordView: View {
             @State var ittime = 0
             @State var instime = 0
             @State var otherstime = 0
-            //@State var minute:Int = 0
-            //@State var second:Int = 0
+            //@State var m = 0
+            //@State var s = 0
             //アラート変数表示有無
             @State var showAlert = false
 
@@ -32,55 +32,72 @@ struct RecordView: View {
                     ZStack {
                         // 背景画像
                         Image("background")
-                        //リサイズする
+                            //リサイズする
                             .resizable()
-                        //セーフエリアを超えて画面全体に配置
+                            //セーフエリアを超えて画面全体に配置
                             .ignoresSafeArea()
-                        //アスペクト比（縦横比）を維持して短辺基準に収まるようにする
-                            //.aspectRatio(contentMode: .fill)
+                            //アスペクト比（縦横比）を維持して短辺基準に収まるようにする
+                            .aspectRatio(contentMode: .fill)
                         //垂直にレイアウト（縦方向にレイアウト）
                         //View（部品）間の間隔を5にする
                         VStack(spacing: 5.0) {
-                            Spacer()
                             //カテゴリ選択
                                 //Pickerを表示
                                 Picker(selection: $category) {
-                                    Text("カテゴリを選択してください")
+                                    Text("カテゴリを選択してください").tag(0)
                                     Text("ビジネススキル").tag(1)
                                     Text("IT・デジタル").tag(2)
                                     Text("保険商品・サービス").tag(3)
                                     Text("その他").tag(4)
                                 } label: {
-                                    Text("選択")
-                                        .padding()
+                                    //Text("選択")
+                                        //.padding()
                                 }
                                 //Pickerをホイール表示
                                 .pickerStyle(.wheel)
                             Spacer()
                             //水平にレイアウト（横方向にレイアウト）
-                            HStack {
-                                Spacer()
+                            HStack(spacing: 20.0) {
                                 //スタートボタン
                                 Button(action: {
                                     //ボタンをタップしたときのアクション
-                                    //タイマーをカウントダウンかいしする関数を呼び出す
-                                    startTimer()
+                                    //Pickerでカテゴリを選択してくださいのままであればカウントアップを開始しない
+                                    if category == 0 {
+                                        return
+                                    } else {
+                                        //タイマーのカウントアップを開始する関数を呼び出す
+                                        startTimer()
+                                    }
                                 }) {
+                                    if category == 0 {
                                     //テキストを表示
                                     Text("START")
                                     //文字サイズを指定
                                         .font(.title)
-                                    //文字色を白に指定
+                                    //文字色を黒に指定
                                         .foregroundColor(Color.black)
                                     //幅高さを140に指定
                                         .frame(width: 140, height: 140)
                                     //背景を指定
-                                        .background(Color("startColor"))
+                                        .background(Color("beforeSelected"))
                                     //円形にくり抜く
                                         .clipShape(Circle())
+                                    } else {
+                                        //テキストを表示
+                                        Text("START")
+                                        //文字サイズを指定
+                                            .font(.title)
+                                        //文字色を黒に指定
+                                            .foregroundColor(Color.white)
+                                        //幅高さを140に指定
+                                            .frame(width: 140, height: 140)
+                                        //背景を指定
+                                            .background(Color("startColor"))
+                                        //円形にくり抜く
+                                            .clipShape(Circle())
+                                    }
                                 } //スタートボタンここまで
                                 // ストップボタン
-                                Spacer()
                                 Button(action: {
                                     //ボタンをタップしたときのアクション
                                     if category == 1 {
@@ -111,7 +128,7 @@ struct RecordView: View {
                                     //文字サイズを指定
                                         .font(.title)
                                     //文字色を指定
-                                        .foregroundColor(Color.black)
+                                        .foregroundColor(Color.white)
                                     //幅高さを140に指定
                                         .frame(width: 140, height: 140)
                                     //背景を指定
@@ -119,26 +136,14 @@ struct RecordView: View {
                                     //円形にくり抜く
                                         .clipShape(Circle())
                                 } //ストップボタンここまで
-                                Spacer()
-                                
                            } //HStackここまで
-                            //経過秒数を表示する
-                            //let min:Int = count / 60
-                            //let sec:Int = count - min * 60
-                            //let string = String(format: "%d分%d秒" ,m,s)
                             Spacer()
-                            Text("\(count)秒")
+                            //経過秒数を表示する
+                            Text("\(count / 60)分\(count % 60)秒")
                                 .font(.largeTitle)
-
-                            
-                            //Text("\(minute)分\(second)秒")
-                                //let timeInterval = 124.04521142
-                                //let formatter = DateFormatter()
-                                //formatter.dateFormat = "mm:ss"
-                                //let targetDate = Date(timeIntervalSinceReferenceDate: timeInterval)
-                                //let str = formatter.string(from: timeInterval(count))
-                                //print(str)
-                                                    } //VStack ここまで
+                            Spacer()
+                        }
+                        //.padding() //VStack ここまで
                     } //ZStackここまで
 
                     //画面が表示されるときに実行される
@@ -147,32 +152,50 @@ struct RecordView: View {
                         count = 0
                     } // .onApperここまで
                     
-                //状態変数showAlertがtrueになった時に実行される
-                .alert(isPresented: $showAlert){
-                //アラート表示するためのレイアウトを記述する
-                //アラートを表示する
-                Alert(title: Text("終了"),
-                message: Text("タイマー終了時間です"),
-                dismissButton: .default(Text("OK")))
-                }//.alertここまで
+                    //状態変数showAlertがtrueになった時に実行される
+                    //.alert(isPresented: $showAlert){
+                    ////アラート表示するためのレイアウトを記述する
+                        ////アラートを表示する
+                        //Alert(title: Text("終了"),
+                              //message: Text("タイマー終了時間です"),
+                              //dismissButton: .default(Text("OK")))
+                    //} //.alertここまで
+                .toolbar {
+                    //ナビゲーションバーの左にボタンを追加
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        //ナビゲーション遷移
+                        NavigationLink(destination: OriginalView()) {
+                            //テキストを表示
+                            Text("<Top画面")
+                        } //NavigationLinkここまで
+                    } //ToolbarItemここまで
+                    //ナビゲーションバーの左にボタンを追加
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        //ナビゲーション遷移
+                        NavigationLink(destination: TotalView()) {
+                            //テキストを表示
+                            Text("集計ページ>")
+                        } //NavigationLinkここまで
+                    } //ToolbarItemここまで
+                }//toolbarここまで
             } // NavigationView ここまで
                 // iPadへ対応
                 .navigationViewStyle(StackNavigationViewStyle())
         } // bodyここまで
             
-            //１秒ごとに実行されてカウントダウンする
-            func countUpTimer() {
-                // count（経過時間）に＋１指定していく
-                count += 1
+        //１秒ごとに実行されてカウントダウンする
+        func countUpTimer() {
+            // count（経過時間）に＋１指定していく
+            count += 1
                 
-                ////残り時間が０以下の時タイマーを止める
-                //if timerValue - count <= 0 {
-                    ////タイマー停止
-                    //timerHandler?.invalidate()
-                    ////アラートを表示する
-                    //showAlert = true
-                //}
-            }//　countUpTimer()ここまで
+            ////残り時間が０以下の時タイマーを止める
+            //if timerValue - count <= 0 {
+                ////タイマー停止
+                //timerHandler?.invalidate()
+                ////アラートを表示する
+                //showAlert = true
+            //}
+        }//　countUpTimer()ここまで
 
         //タイマーをカウントダウン開始する関数
         func startTimer() {
@@ -189,14 +212,20 @@ struct RecordView: View {
             //if timerValue - count <= 0 {
             //count = 0
             //}
-        //タイマーをスタート
-        timerHandler = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            //タイマー実行時に呼び出される
-            //１秒毎に実行されてカウントアップする関数を実行する
-            countUpTimer()
-        }
+            //タイマーをスタート
+            timerHandler = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                //タイマー実行時に呼び出される
+                //１秒毎に実行されてカウントアップする関数を実行する
+                countUpTimer()
+            }
         }//startTimer()ここまで
+    
+        //func makeDisnable() {
+            //Picker.disabled == true
+        //}
+    
 }
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         RecordView()
