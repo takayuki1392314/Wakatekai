@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit
+import Charts
 
 struct TotalView: View {
     
@@ -39,7 +40,7 @@ struct TotalView: View {
                     //ナビゲーション遷移
                     NavigationLink(destination: OriginalView()){
                         //テキストを表示
-                        Text("TOP画面")
+                        Text("<TOP画面")
                     }//NVavigationLinkここまで
             }//ToolbarItemここまで
         }//toolbarここまで
