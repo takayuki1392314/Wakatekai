@@ -10,34 +10,26 @@ import UIKit
 
 struct TotalView: View {
     
-    @State var nowDate = Date()
-    @State var dateText = ""
-    private let dateFormatter = DateFormatter()
-    init() {
-        dateFormatter.dateFormat = "YYYY/MM/dd(E) \nHH:mm:ss"
-        dateFormatter.locale = Locale(identifier: "ja_jp")
-        }
-    
-    
-    @AppStorage("biz_time") var biztime = 0
-    @AppStorage("it_time") var ittime = 0
-    @AppStorage("ins_time") var instime = 0
-    @AppStorage("others_time") var otherstime = 0
+    @AppStorage("biz_time") var biztime = 10
+    @AppStorage("it_time") var ittime = 10
+    @AppStorage("ins_time") var instime = 10
+    @AppStorage("others_time") var otherstime = 10
+    @AppStorage("total_time") var totaltime = 40
+
     
     var body: some View {
         NavigationView{
             VStack{
 
-                Text(dateText)
                 
-                Text("学びの時間月合計")
+                Text("学びの時間9月合計")
                 Text("２０２２年９月")
-                Text("合計時間").padding()
-                Text("カテゴリ別合計")
-                Text("ビジネススキル：")
-                Text("IT・デジタル：")
-                Text("保険商品・サービス：")
-                Text("その他：")
+                Text("合計時間").padding().border(Color.blue).background(Color.blue).foregroundColor(.white)
+                Text("カテゴリ別合計：\(totaltime)秒")
+                Text("ビジネススキル：\(biztime)秒")
+                Text("IT・デジタル：\(ittime)秒")
+                Text("保険商品・サービス：\(instime)秒")
+                Text("その他：\(otherstime)秒")
                 
             }//VSstockここまで
             //ナビゲーションにボタンを追加
