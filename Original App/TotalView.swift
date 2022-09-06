@@ -48,6 +48,11 @@ struct TotalView: View {
     }//bodyここまで
 }
 
+//円グラフ参考
+
+
+//円グラフ参考ここまで
+
 struct TotalView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
