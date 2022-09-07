@@ -9,21 +9,29 @@ import SwiftUI
 import UIKit
 import Charts
 
+
+
 struct TotalView: View {
+    let theDate = Date()//実行時のタイム
     
     @AppStorage("biz_time") var biztime = 10
     @AppStorage("it_time") var ittime = 10
     @AppStorage("ins_time") var instime = 10
     @AppStorage("others_time") var otherstime = 10
     @AppStorage("total_time") var totaltime = 40
+    
 
     
     var body: some View {
+        
         NavigationView{
+            
+            
             VStack{
-
-                
-                Text("学びの時間9月合計")
+                    VStack(alignment:.leading){
+                        Text(theDate.description(with: Locale(identifier: "ja_JP"))).padding()
+                    }
+                Text("学びの時間10月合計")
                 Text("２０２２年９月")
                 Text("合計時間").padding().border(Color.blue).background(Color.blue).foregroundColor(.white)
                 Text("カテゴリ別合計：\(totaltime)秒")
@@ -41,6 +49,7 @@ struct TotalView: View {
                     NavigationLink(destination: OriginalView()){
                         //テキストを表示
                         Text("<TOP画面")
+                        
                     }//NVavigationLinkここまで
             }//ToolbarItemここまで
         }//toolbarここまで
