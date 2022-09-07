@@ -7,38 +7,37 @@
 
 import SwiftUI
 import UIKit
+import Foundation
 import Charts
 
 
 
 struct TotalView: View {
     let theDate = Date()//実行時のタイム
+    let calender = Calendar(identifier: .gregorian)
+    let month = calender.component(.month, from: theDate)
     
-    @AppStorage("biz_time") var biztime = 10
-    @AppStorage("it_time") var ittime = 10
-    @AppStorage("ins_time") var instime = 10
-    @AppStorage("others_time") var otherstime = 10
-    @AppStorage("total_time") var totaltime = 40
+    @AppStorage("biz_time") var biztime = 120
+    @AppStorage("it_time") var ittime = 120
+    @AppStorage("ins_time") var instime = 120
+    @AppStorage("others_time") var otherstime = 120
+    @AppStorage("total_time") var totaltime = 120
     
-
     
     var body: some View {
         
         NavigationView{
             
-            
             VStack{
-                    VStack(alignment:.leading){
-                        Text(theDate.description(with: Locale(identifier: "ja_JP"))).padding()
-                    }
+                Text(theDate.description(with: Locale(identifier: "ja_JP"))).padding()
                 Text("学びの時間10月合計")
                 Text("２０２２年９月")
                 Text("合計時間").padding().border(Color.blue).background(Color.blue).foregroundColor(.white)
-                Text("カテゴリ別合計：\(totaltime)秒")
-                Text("ビジネススキル：\(biztime)秒")
-                Text("IT・デジタル：\(ittime)秒")
-                Text("保険商品・サービス：\(instime)秒")
-                Text("その他：\(otherstime)秒")
+                Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 60 )分")
+                Text("ビジネススキル：\(biztime / 60)分")
+                Text("IT・デジタル：\(ittime / 60 )分")
+                Text("保険商品・サービス：\(instime / 60 )分")
+                Text("その他：\(otherstime / 60 )分")
                 
             }//VSstockここまで
             //ナビゲーションにボタンを追加
@@ -65,8 +64,6 @@ struct TotalView: View {
 struct TotalView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TotalView()
-            TotalView()
             TotalView()
         }
     }
