@@ -17,10 +17,10 @@ struct RecordView: View {
             //カテゴリ変数を作成
             @State var category = 0
             //カテゴリ別の経過時間保持の変数を定義
-            @State var biztime = 0
-            @State var ittime = 0
-            @State var instime = 0
-            @State var otherstime = 0
+            @AppStorage("biz_time") var biztime = 0
+            @AppStorage("it_time") var ittime = 0
+            @AppStorage("ins_time") var instime = 0
+            @AppStorage("others_time") var otherstime = 0
             //@State var m = 0
             //@State var s = 0
             //アラート変数表示有無
