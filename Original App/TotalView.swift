@@ -11,16 +11,18 @@ import Foundation
 import Charts
 
 
-
 struct TotalView: View {
-   // let theDate = Date()//実行時のタイム
+    //let calendar = Calendar(identifier: .gregorian)
+    let theDate = Date()//実行時の日付
+    //let year = calendar.component(.year, from: theDate)
+    //let month = calendar.component(.month, from: theDate)
     
     @AppStorage("biz_time") var biztime = 0
     @AppStorage("it_time") var ittime = 0
     @AppStorage("ins_time") var instime = 0
     @AppStorage("others_time") var otherstime = 0
     @AppStorage("total_time") var totaltime = 0
-    
+
     
     var body: some View {
         
@@ -30,6 +32,7 @@ struct TotalView: View {
             //    Text(theDate.description(with: Locale(identifier: "ja_JP"))).padding()
                 Text("学びの時間月合計")
                 Text("２０２２年９月")
+                //Text("\(year)年\(month)月")
                 Text("合計時間").padding().border(Color.blue).background(Color.blue).foregroundColor(.white)
                 Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 60 )分")
                 Text("ビジネススキル：\(biztime / 60)分")
