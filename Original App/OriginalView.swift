@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+import UIKit
+import Foundation
+import Charts
 
+@main
 struct originalApp: App {
     var body: some Scene {
         WindowGroup {
-            TopView()
+            RecordView()
         }
     }
 }

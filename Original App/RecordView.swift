@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import UIKit
+import Foundation
+import Charts
 
 struct RecordView: View {
             //タイマー変数を作成

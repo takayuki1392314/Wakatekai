@@ -10,6 +10,16 @@ import UIKit
 import Foundation
 import Charts
 
+//struct ChartsSampleView_Previews: PreviewProvider
+//static var previews: some View {
+//        ChartsSampleView()
+//    }
+//}
+struct ToyShape: Identifiable {
+    var type: String
+    var count: Double
+    var id = UUID()
+}
 
 struct TotalView: View {
     //let calendar = Calendar(identifier: .gregorian)
@@ -21,7 +31,12 @@ struct TotalView: View {
     @AppStorage("it_time") var ittime = 0
     @AppStorage("ins_time") var instime = 0
     @AppStorage("others_time") var otherstime = 0
-    @AppStorage("total_time") var totaltime = 0
+    
+    var data: [ToyShape] = [
+        .init(type: "Cube", count: 5),
+        .init(type: "Sphere", count: 4),
+        .init(type: "Pyramid", count: 4)
+    ]
 
     
     var body: some View {
@@ -38,9 +53,27 @@ struct TotalView: View {
                 Text("ビジネススキル：\(biztime / 60)分")
                 Text("IT・デジタル：\(ittime / 60 )分")
                 Text("保険商品・サービス：\(instime / 60 )分")
-                Text("その他：\(otherstime / 60 )分")
+//                Text("その他：\(otherstime / 60 )分")
+                
                 
             }//VSstockここまで
+            
+            //Chart {
+            //            BarMark(
+            //                x: .value("Shape Type", data[0].type),
+            //                y: .value("Total Count", data[0].count)
+            //            )
+            //            BarMark(
+            //                 x: .value("Shape Type", data[1].type),
+            //                 y: .value("Total Count", data[1].count)
+            //            )
+            //            BarMark(
+            //                 x: .value("Shape Type", data[2].type),
+            //                 y: .value("Total Count", data[2].count)
+            //            )
+            //        }
+            
+            
             //ナビゲーションにボタンを追加
             .toolbar{
                 //ナビゲーションの左にボタンを追加
@@ -53,19 +86,20 @@ struct TotalView: View {
                     }//NVavigationLinkここまで
             }//ToolbarItemここまで
         }//toolbarここまで
+            
     }//NavigationViewここまで
+        
     }//bodyここまで
 }
 
-//円グラフ参考
-
-
-//円グラフ参考ここまで
 
 struct TotalView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             TotalView()
+                .previewInterfaceOrientation(.portrait)
         }
     }
 }
+
+
