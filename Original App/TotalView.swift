@@ -4,7 +4,6 @@
 //
 //  Created by 寺尾美帆 on 2022/08/31.
 //
-
 import SwiftUI
 import UIKit
 import Foundation
@@ -15,11 +14,11 @@ import Charts
 //        ChartsSampleView()
 //    }
 //}
-struct ToyShape: Identifiable {
-    var type: String
-    var count: Double
-    var id = UUID()
-}
+//struct ToyShape: Identifiable {
+//    var type: String
+//    var count: Double
+//    var id = UUID()
+//}
 
 struct TotalView: View {
     //let calendar = Calendar(identifier: .gregorian)
@@ -32,11 +31,12 @@ struct TotalView: View {
     @AppStorage("ins_time") var instime = 0
     @AppStorage("others_time") var otherstime = 0
     
-    var data: [ToyShape] = [
-        .init(type: "Cube", count: 5),
-        .init(type: "Sphere", count: 4),
-        .init(type: "Pyramid", count: 4)
-    ]
+    
+//    var data: [ToyShape] = [
+//        .init(type: "Cube", count: 5),
+//        .init(type: "Sphere", count: 4),
+//        .init(type: "Pyramid", count: 4)
+//    ]
 
     
     var body: some View {
@@ -47,15 +47,19 @@ struct TotalView: View {
             //    Text(theDate.description(with: Locale(identifier: "ja_JP"))).padding()
                 Text("学びの時間月合計")
                 Text("２０２２年９月")
-                //Text("\(year)年\(month)月")
+//                Text("\(year)年\(month)月")
                 Text("合計時間").padding().border(Color.blue).background(Color.blue).foregroundColor(.white)
-                Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 60 )分")
-                Text("ビジネススキル：\(biztime / 60)分")
-                Text("IT・デジタル：\(ittime / 60 )分")
-                Text("保険商品・サービス：\(instime / 60 )分")
-//                Text("その他：\(otherstime / 60 )分")
+                List {
+                    Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 60 )分")
+                    Text("ビジネススキル：\(biztime / 60)分")
+                    Text("IT・デジタル：\(ittime / 60 )分")
+                    Text("保険商品・サービス：\(instime / 60 )分")
+                    Text("その他：\(otherstime / 60 )分")
+                }
+
+
                 
-                
+                Circle().foregroundColor(.blue).frame(width: 200, height: 200)
             }//VSstockここまで
             
             //Chart {
@@ -101,5 +105,4 @@ struct TotalView_Previews: PreviewProvider {
         }
     }
 }
-
 
