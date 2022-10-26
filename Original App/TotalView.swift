@@ -20,6 +20,7 @@ import Charts
 //    var id = UUID()
 //}
 
+
 struct TotalView: View {
     //let calendar = Calendar(identifier: .gregorian)
     let theDate = Date()//実行時の日付
@@ -31,6 +32,7 @@ struct TotalView: View {
     @AppStorage("ins_time") var instime = 0
     @AppStorage("others_time") var otherstime = 0
     
+    var biztime_total = biztime
     
 //    var data: [ToyShape] = [
 //        .init(type: "Cube", count: 5),
@@ -55,28 +57,12 @@ struct TotalView: View {
                     Text("IT・デジタル：\(ittime / 60 )分")
                     Text("保険商品・サービス：\(instime / 60 )分")
                     Text("その他：\(otherstime / 60 )分")
+                    Text("その他：\(biztime_total / 60 )分")
                 }
 
-
-                
-                Circle().foregroundColor(.blue).frame(width: 200, height: 200)
             }//VSstockここまで
             
-            //Chart {
-            //            BarMark(
-            //                x: .value("Shape Type", data[0].type),
-            //                y: .value("Total Count", data[0].count)
-            //            )
-            //            BarMark(
-            //                 x: .value("Shape Type", data[1].type),
-            //                 y: .value("Total Count", data[1].count)
-            //            )
-            //            BarMark(
-            //                 x: .value("Shape Type", data[2].type),
-            //                 y: .value("Total Count", data[2].count)
-            //            )
-            //        }
-            
+
             
             //ナビゲーションにボタンを追加
             .toolbar{
