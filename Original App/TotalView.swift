@@ -32,8 +32,8 @@ struct TotalView: View {
     @AppStorage("ins_time") var instime = 0
     @AppStorage("others_time") var otherstime = 0
     
-    var biztime_total = biztime
-    
+    var biztime_total = 0
+    //@State var biztime_total = 0
 //    var data: [ToyShape] = [
 //        .init(type: "Cube", count: 5),
 //        .init(type: "Sphere", count: 4),
@@ -44,7 +44,6 @@ struct TotalView: View {
     var body: some View {
         
         NavigationView{
-            
             VStack{
             //    Text(theDate.description(with: Locale(identifier: "ja_JP"))).padding()
                 Text("学びの時間月合計")
@@ -65,17 +64,17 @@ struct TotalView: View {
 
             
             //ナビゲーションにボタンを追加
-            .toolbar{
+            //.toolbar{
                 //ナビゲーションの左にボタンを追加
-                ToolbarItem(placement: .navigationBarLeading){
+                //ToolbarItem(placement: .navigationBarLeading){
                     //ナビゲーション遷移
-                    NavigationLink(destination: OriginalView()){
+                    //NavigationLink(destination: OriginalView()){
                         //テキストを表示
-                        Text("<TOP画面")
+                        //Text("<TOP画面")
                         
-                    }//NVavigationLinkここまで
-            }//ToolbarItemここまで
-        }//toolbarここまで
+                    //}//NVavigationLinkここまで
+            //}//ToolbarItemここまで
+        //}//toolbarここまで
             
     }//NavigationViewここまで
         

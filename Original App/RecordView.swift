@@ -4,7 +4,6 @@
 //
 //  Created by 寺尾美帆 on 2022/07/22.
 //
-
 import SwiftUI
 import UIKit
 import Foundation
@@ -24,7 +23,8 @@ struct RecordView: View {
             @AppStorage("it_time") var ittime = 0
             @AppStorage("ins_time") var instime = 0
             @AppStorage("others_time") var otherstime = 0
-
+            //@State var m = 0
+            //@State var s = 0
             //アラート変数表示有無
             @State var showAlert = false
 
@@ -34,30 +34,29 @@ struct RecordView: View {
                     ZStack {
                         // 背景画像
                         Image("background")
-                        //リサイズする
+                            //リサイズする
                             .resizable()
-                        //セーフエリアを超えて画面全体に配置
+                            //セーフエリアを超えて画面全体に配置
                             .ignoresSafeArea()
-                        //アスペクト比（縦横比）を維持して短辺基準に収まるようにする
+                            //アスペクト比（縦横比）を維持して短辺基準に収まるようにする
                             .aspectRatio(contentMode: .fill)
                         //垂直にレイアウト（縦方向にレイアウト）
                         //View（部品）間の間隔を5にする
                         VStack(spacing: 5.0) {
                             //カテゴリ選択
-                            //Pickerを表示
-                            Form {
-                                Picker("カテゴリ",selection: $category) {
-                                    Text("選択してください").tag(0)
+                                //Pickerを表示
+                                Picker(selection: $category) {
+                                    Text("カテゴリを選択してください").tag(0)
                                     Text("ビジネススキル").tag(1)
                                     Text("IT・デジタル").tag(2)
                                     Text("保険商品・サービス").tag(3)
                                     Text("その他").tag(4)
-                                    
+                                } label: {
+                                    //Text("選択")
+                                        //.padding()
                                 }
-                            }
-                            //.padding()
-                            .frame(width: 350.0, height: 300.0)
-                            
+                                //Pickerをホイール表示
+                                .pickerStyle(.wheel)
                             Spacer()
                             //水平にレイアウト（横方向にレイアウト）
                             HStack(spacing: 20.0) {
@@ -73,18 +72,18 @@ struct RecordView: View {
                                     }
                                 }) {
                                     if category == 0 {
-                                        //テキストを表示
-                                        Text("START")
-                                        //文字サイズを指定
-                                            .font(.title)
-                                        //文字色を黒に指定
-                                            .foregroundColor(Color.black)
-                                        //幅高さを140に指定
-                                            .frame(width: 140, height: 140)
-                                        //背景を指定
-                                            .background(Color("beforeSelected"))
-                                        //円形にくり抜く
-                                            .clipShape(Circle())
+                                    //テキストを表示
+                                    Text("START")
+                                    //文字サイズを指定
+                                        .font(.title)
+                                    //文字色を黒に指定
+                                        .foregroundColor(Color.black)
+                                    //幅高さを140に指定
+                                        .frame(width: 140, height: 140)
+                                    //背景を指定
+                                        .background(Color("beforeSelected"))
+                                    //円形にくり抜く
+                                        .clipShape(Circle())
                                     } else {
                                         //テキストを表示
                                         Text("START")
@@ -139,17 +138,15 @@ struct RecordView: View {
                                     //円形にくり抜く
                                         .clipShape(Circle())
                                 } //ストップボタンここまで
-                            } //HStackここまで
+                           } //HStackここまで
                             Spacer()
                             //経過秒数を表示する
                             Text("\(count / 60)分\(count % 60)秒")
                                 .font(.largeTitle)
                             Spacer()
                         }
-                        .padding(.all)
                         //.padding() //VStack ここまで
                     } //ZStackここまで
-                    
                     //画面が表示されるときに実行される
                     .onAppear {
                         //カウント（経過時間）の変数を初期化
@@ -159,30 +156,30 @@ struct RecordView: View {
                     //状態変数showAlertがtrueになった時に実行される
                     //.alert(isPresented: $showAlert){
                     ////アラート表示するためのレイアウトを記述する
-                    ////アラートを表示する
-                    //Alert(title: Text("終了"),
-                    //message: Text("タイマー終了時間です"),
-                    //dismissButton: .default(Text("OK")))
+                        ////アラートを表示する
+                        //Alert(title: Text("終了"),
+                              //message: Text("タイマー終了時間です"),
+                              //dismissButton: .default(Text("OK")))
                     //} //.alertここまで
-                    .toolbar {
-                        //ナビゲーションバーの左にボタンを追加
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            //ナビゲーション遷移
-                            NavigationLink(destination: OriginalView()) {
-                                //テキストを表示
-                                Text("<Top画面")
-                            } //NavigationLinkここまで
-                        } //ToolbarItemここまで
-                        //ナビゲーションバーの左にボタンを追加
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            //ナビゲーション遷移
-                            NavigationLink(destination: TotalView()) {
-                                //テキストを表示
-                                Text("集計ページ>")
-                            } //NavigationLinkここまで
-                        } //ToolbarItemここまで
-                    }//toolbarここまで
-                } // NavigationView ここまで
+                .toolbar {
+                    //ナビゲーションバーの左にボタンを追加
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        //ナビゲーション遷移
+                        NavigationLink(destination: OriginalView()) {
+                            //テキストを表示
+                            Text("<Top画面")
+                        } //NavigationLinkここまで
+                    } //ToolbarItemここまで
+                    //ナビゲーションバーの左にボタンを追加
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        //ナビゲーション遷移
+                        NavigationLink(destination: TotalView()) {
+                            //テキストを表示
+                            Text("集計ページ>")
+                        } //NavigationLinkここまで
+                    } //ToolbarItemここまで
+                }//toolbarここまで
+            } // NavigationView ここまで
                 // iPadへ対応
                 .navigationViewStyle(StackNavigationViewStyle())
         } // bodyここまで
@@ -200,7 +197,6 @@ struct RecordView: View {
                 //showAlert = true
             //}
         }//　countUpTimer()ここまで
-
         //タイマーをカウントダウン開始する関数
         func startTimer() {
             //timerHandlerをアンラップしてunwrapedTimerHandlerに再入
