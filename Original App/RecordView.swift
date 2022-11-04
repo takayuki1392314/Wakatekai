@@ -19,7 +19,6 @@ struct RecordView: View {
             //カテゴリ変数を作成
             @State var category = 0
             //カテゴリ別の経過時間保持の変数を定義
-    //AAA
             @AppStorage("biz_time") var biztime = 0
             @AppStorage("it_time") var ittime = 0
             @AppStorage("ins_time") var instime = 0
@@ -46,18 +45,19 @@ struct RecordView: View {
                         VStack(spacing: 5.0) {
                             //カテゴリ選択
                                 //Pickerを表示
-                                Picker(selection: $category) {
+                            Picker(selection: $category, label: Text("カテゴリを選択してください")) {
                                     Text("カテゴリを選択してください").tag(0)
                                     Text("ビジネススキル").tag(1)
                                     Text("IT・デジタル").tag(2)
                                     Text("保険商品・サービス").tag(3)
                                     Text("その他").tag(4)
-                                } label: {
+                                }
+                        //label:{
                                     //Text("選択")
                                         //.padding()
-                                }
+                                //}
                                 //Pickerをホイール表示
-                                .pickerStyle(.wheel)
+                                .pickerStyle(.menu)
                             Spacer()
                             //水平にレイアウト（横方向にレイアウト）
                             HStack(spacing: 20.0) {
