@@ -20,11 +20,7 @@ import Charts
 //    var id = UUID()
 //}
 struct TotalView: View {
-    //let calendar = Calendar(identifier: .gregorian)
-    let theDate = Date()//実行時の日付
-    //let year = calendar.component(.year, from: theDate)
-    //let month = calendar.component(.month, from: theDate)
-    
+
     //割合として算出するため、初期値を１秒に設定（０割を防ぐため）
     @AppStorage("biz_time") var biztime = 1
     @AppStorage("it_time") var ittime = 1
@@ -46,22 +42,32 @@ struct TotalView: View {
                 Text("２０２２年９月")
 //                Text("\(year)年\(month)月")
                 Text("合計時間").padding().border(Color.blue).background(Color.blue).foregroundColor(.white)
+                
+                NavigationView{
+                    
+                
                 List {
-                    Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 3660 )時間\((biztime+ittime+instime+otherstime) / 60)秒")
+                    Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 3660 )時間\((biztime+ittime+instime+otherstime) / 60)分")
                     Text("ビジネススキル：\(biztime / 3600)時間\(biztime / 60)分")
                     Text("IT・デジタル：\(ittime / 3660 )時間\(ittime / 60 )分")
                     Text("保険商品・サービス：\(instime / 3660 )時間\(instime / 60 )分")
                     Text("その他：\(otherstime / 3660 )時間\(otherstime / 60 )分")
                     Text("その他：\(biztime_total / 3660 )時間\(biztime_total / 60 )分")
                 }
+                .navigationTitle("勉強時間")
+                }
 
+                NavigationView{
                 List {
                     Text("ビジネススキル：\(biztime / (biztime+ittime+instime+otherstime)*100) ％")
-                    Text("IT・デジタル：\(ittime / (biztime+ittime+instime+otherstime)*100 )％")
+                    Text("IT・デジタル　：\(ittime / (biztime+ittime+instime+otherstime)*100 )％")
                     Text("保険商品・サービス：\(instime / (biztime+ittime+instime+otherstime)*100 )％")
                     Text("その他：\(otherstime / (biztime+ittime+instime+otherstime)*100 )％")
                     Text("その他：\(biztime_total / (biztime+ittime+instime+otherstime)*100 )％")
                 }
+                .navigationTitle("勉強比率")
+                }
+
             }//VSstockここまで
             
 
