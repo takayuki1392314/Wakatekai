@@ -19,8 +19,6 @@ import Charts
 //    var count: Double
 //    var id = UUID()
 //}
-
-
 struct TotalView: View {
     //let calendar = Calendar(identifier: .gregorian)
     let theDate = Date()//実行時の日付
@@ -40,10 +38,8 @@ struct TotalView: View {
 //        .init(type: "Sphere", count: 4),
 //        .init(type: "Pyramid", count: 4)
 //    ]
-
-    
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack{
             //    Text(theDate.description(with: Locale(identifier: "ja_JP"))).padding()
                 Text("学びの時間月合計")
@@ -83,7 +79,7 @@ struct TotalView: View {
             //}//ToolbarItemここまで
         //}//toolbarここまで
             
-    }//NavigationViewここまで
+//    }//NavigationViewここまで
         
     }//bodyここまで
 }
