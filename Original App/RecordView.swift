@@ -33,7 +33,7 @@ struct RecordView: View {
                     //奥から手前方向にレイアウト
                     ZStack {
                         // 背景画像
-                        Image("background")
+                        Image("background")//ああ
                             //リサイズする
                             .resizable()
                             //セーフエリアを超えて画面全体に配置
@@ -44,20 +44,22 @@ struct RecordView: View {
                         //View（部品）間の間隔を5にする
                         VStack(spacing: 5.0) {
                             //カテゴリ選択
-                                //Pickerを表示
-                            Picker(selection: $category, label: Text("カテゴリを選択してください")) {
-                                    Text("カテゴリを選択してください").tag(0)
+                            //Pickerを表示
+                            //Text("学びのカテゴリ")
+                                //.font(.title)
+                            Form{
+                                Picker("カテゴリを選択", selection: $category) {
+                                    //Text("カテゴリを選択してください").tag(0)
                                     Text("ビジネススキル").tag(1)
                                     Text("IT・デジタル").tag(2)
                                     Text("保険商品・サービス").tag(3)
                                     Text("その他").tag(4)
                                 }
-                        //label:{
-                                    //Text("選択")
-                                        //.padding()
-                                //}
+                            }
+                            .frame(width: 400, height: 50)
+                            .clipped()
                                 //Pickerをホイール表示
-                                .pickerStyle(.menu)
+                                //.pickerStyle(.menu)
                             Spacer()
                             //水平にレイアウト（横方向にレイアウト）
                             HStack(spacing: 20.0) {
@@ -174,7 +176,7 @@ struct RecordView: View {
                     //ナビゲーションバーの左にボタンを追加
                     ToolbarItem(placement: .navigationBarTrailing) {
                         //ナビゲーション遷移
-                        NavigationLink(destination: TotalView()) {
+                        NavigationLink(destination:TotalView()) {
                             //テキストを表示
                             Text("集計ページ>")
                         } //NavigationLinkここまで

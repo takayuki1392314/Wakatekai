@@ -9,6 +9,7 @@ import UIKit
 import Foundation
 import Charts
 
+
 //struct ChartsSampleView_Previews: PreviewProvider
 //static var previews: some View {
 //        ChartsSampleView()
@@ -21,41 +22,47 @@ import Charts
 //}
 struct TotalView: View {
 
-    //割合として算出するため、初期値を１秒に設定（０割を防ぐため）
+    //割合算出するため、初期値を１秒に設定（０割を防ぐため）
     @AppStorage("biz_time") var biztime = 1
     @AppStorage("it_time") var ittime = 1
     @AppStorage("ins_time") var instime = 1
     @AppStorage("others_time") var otherstime = 1
     
-    var biztime_total = 0
-    //@State var biztime_total = 0
-//    var data: [ToyShape] = [
-//        .init(type: "Cube", count: 5),
-//        .init(type: "Sphere", count: 4),
-//        .init(type: "Pyramid", count: 4)
-//    ]
+    @State var nowDate = Date()
+    @State var dateText = ""
+    private let dateFormatter = DateFormatter()
+    
+    init() {
+        dateFormatter.dateFormat = "YYYY/MM/dd(E) \nHH:mm:ss"
+        dateFormatter.locale = Locale(identifier: "ja_jp")
+        }
+    
+
     var body: some View {
 //        NavigationView{
             VStack{
-            //    Text(theDate.description(with: Locale(identifier: "ja_JP"))).padding()
-                Text("学びの時間月合計")
-                Text("２０２２年９月")
+
+                Text("学びの時間今月合計")
+                Text(dateText.isEmpty ? "\(dateFormatter.string(from: nowDate))" : dateText)
+                .onAppear {
+                Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                        self.nowDate = Date()
+                        dateText = "\(dateFormatter.string(from: nowDate))"
+                    }
+                }
 //                Text("\(year)年\(month)月")
                 Text("合計時間").padding().border(Color.blue).background(Color.blue).foregroundColor(.white)
                 
                 NavigationView{
-                    
-                
                 List {
                     Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 3660 )時間\((biztime+ittime+instime+otherstime) / 60)分")
                     Text("ビジネススキル：\(biztime / 3600)時間\(biztime / 60)分")
                     Text("IT・デジタル：\(ittime / 3660 )時間\(ittime / 60 )分")
                     Text("保険商品・サービス：\(instime / 3660 )時間\(instime / 60 )分")
                     Text("その他：\(otherstime / 3660 )時間\(otherstime / 60 )分")
-                    Text("その他：\(biztime_total / 3660 )時間\(biztime_total / 60 )分")
                 }
                 .navigationTitle("勉強時間")
-                }
+                }.navigationViewStyle(StackNavigationViewStyle())
 
                 NavigationView{
                 List {
@@ -63,10 +70,9 @@ struct TotalView: View {
                     Text("IT・デジタル　：\(ittime / (biztime+ittime+instime+otherstime)*100 )％")
                     Text("保険商品・サービス：\(instime / (biztime+ittime+instime+otherstime)*100 )％")
                     Text("その他：\(otherstime / (biztime+ittime+instime+otherstime)*100 )％")
-                    Text("その他：\(biztime_total / (biztime+ittime+instime+otherstime)*100 )％")
                 }
                 .navigationTitle("勉強比率")
-                }
+                }.navigationViewStyle(StackNavigationViewStyle())
 
             }//VSstockここまで
             
@@ -100,3 +106,20 @@ struct TotalView_Previews: PreviewProvider {
     }
 }
 
+struct ContentView: View {
+    @State var date = Date()
+    @State var textDate = ""
+    var body: some View {
+        VStack{
+            Text(textDate)
+            DatePicker("Select Date", selection: $date)
+                .onChange(of: date, perform: { value in
+                    let dateFormatter = DateFormatter()
+                    
+                    dateFormatter.dateFormat = "YY/MM/dd"
+                    
+                    self.textDate = dateFormatter.string(from: self.date)
+                })
+        }
+    }
+}
