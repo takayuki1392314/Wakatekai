@@ -27,7 +27,7 @@ struct RecordView: View {
             //@State var s = 0
             //アラート変数表示有無
             @State var showAlert = false
-
+    
             var body: some View {
                 NavigationView{
                     //奥から手前方向にレイアウト

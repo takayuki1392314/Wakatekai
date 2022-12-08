@@ -9,7 +9,6 @@ import UIKit
 import Foundation
 import Charts
 
-
 //struct ChartsSampleView_Previews: PreviewProvider
 //static var previews: some View {
 //        ChartsSampleView()
@@ -20,28 +19,34 @@ import Charts
 //    var count: Double
 //    var id = UUID()
 //}
+
 struct TotalView: View {
 
     //割合算出するため、初期値を１秒に設定（０割を防ぐため）
-    @AppStorage("biz_time") var biztime = 1
+    @AppStorage("biz_time") var biztime = 100000000
     @AppStorage("it_time") var ittime = 1
     @AppStorage("ins_time") var instime = 1
     @AppStorage("others_time") var otherstime = 1
+    @AppStorage("total_time") var totaltime = 1
     
+    //時間表示に関する変数宣言
     @State var nowDate = Date()
     @State var dateText = ""
     private let dateFormatter = DateFormatter()
     
+    //初期化処理
     init() {
+        //時間表示に関する初期化処理
         dateFormatter.dateFormat = "YYYY/MM/dd(E) \nHH:mm:ss"
         dateFormatter.locale = Locale(identifier: "ja_jp")
+        //List全体の背景色の設定
+        UITableView.appearance().backgroundColor = UIColor.white
         }
     
 
     var body: some View {
 //        NavigationView{
             VStack{
-
                 Text("学びの時間今月合計")
                 Text(dateText.isEmpty ? "\(dateFormatter.string(from: nowDate))" : dateText)
                 .onAppear {
@@ -51,11 +56,11 @@ struct TotalView: View {
                     }
                 }
 //                Text("\(year)年\(month)月")
-                Text("合計時間").padding().border(Color.blue).background(Color.blue).foregroundColor(.white)
+                Text("合計時間").padding().background(Color("stopColor")).foregroundColor(.white)
                 
                 NavigationView{
                 List {
-                    Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 3660 )時間\((biztime+ittime+instime+otherstime) / 60)分")
+                    Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 3600 )時間\((biztime+ittime+instime+otherstime) / 60)分")
                     Text("ビジネススキル：\(biztime / 3600)時間\(biztime / 60)分")
                     Text("IT・デジタル：\(ittime / 3660 )時間\(ittime / 60 )分")
                     Text("保険商品・サービス：\(instime / 3660 )時間\(instime / 60 )分")
@@ -73,7 +78,28 @@ struct TotalView: View {
                 }
                 .navigationTitle("勉強比率")
                 }.navigationViewStyle(StackNavigationViewStyle())
+                
+                Button(action: {
+                    //ボタンをタップしたときのアクション
 
+                    //タイマーをリセット
+                    totaltime = biztime + ittime + instime + instime + otherstime
+                    biztime = 1
+                    ittime = 1
+                    instime = 1
+                    otherstime = 1
+                }) {
+                    //テキストを表示
+                    Text("リセット")
+                    //文字サイズを指定
+                        .font(.title)
+                    //文字色を指定
+                        .foregroundColor(Color.white)
+                    //幅高さを140に指定
+                        .frame(width: 140, height: 70)
+                    //背景を指定
+                        .background(Color("stopColor"))
+                } //ボタンここまで
             }//VSstockここまで
             
 
@@ -106,20 +132,4 @@ struct TotalView_Previews: PreviewProvider {
     }
 }
 
-struct ContentView: View {
-    @State var date = Date()
-    @State var textDate = ""
-    var body: some View {
-        VStack{
-            Text(textDate)
-            DatePicker("Select Date", selection: $date)
-                .onChange(of: date, perform: { value in
-                    let dateFormatter = DateFormatter()
-                    
-                    dateFormatter.dateFormat = "YY/MM/dd"
-                    
-                    self.textDate = dateFormatter.string(from: self.date)
-                })
-        }
-    }
-}
+
