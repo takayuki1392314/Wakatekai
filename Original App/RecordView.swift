@@ -168,7 +168,7 @@ struct RecordView: View {
                     //ナビゲーションバーの左にボタンを追加
                     ToolbarItem(placement: .navigationBarLeading) {
                         //ナビゲーション遷移
-                        NavigationLink(destination: OriginalView()) {
+                        NavigationLink(destination: TopPage()) {
                             //テキストを表示
                             Text("<Top画面")
                         } //NavigationLinkここまで

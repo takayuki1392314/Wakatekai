@@ -42,7 +42,13 @@ struct TotalView: View {
         //List全体の背景色の設定
         UITableView.appearance().backgroundColor = UIColor.white
         }
-    
+    //円グラフ
+    //class CircleChartViewController: UIViewController{
+    //let colors = Colors()
+        //var percentage = UILabel()
+        //var array:[TotalView.Category] = []
+        //var chartView:CircleChartView!
+        //          }
 
     var body: some View {
 //        NavigationView{
@@ -56,18 +62,20 @@ struct TotalView: View {
                     }
                 }
 //                Text("\(year)年\(month)月")
-                Text("合計時間").padding().background(Color("stopColor")).foregroundColor(.white)
+                //Text("合計時間").padding().background(Color("stopColor")).foregroundColor(.white)
+                Text("総合計：\((biztime+ittime+instime+otherstime) / 3600 )時間\((biztime+ittime+instime+otherstime) / 60)分")
                 
                 NavigationView{
                 List {
-                    Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 3600 )時間\((biztime+ittime+instime+otherstime) / 60)分")
+                    //Text("カテゴリ別合計：\((biztime+ittime+instime+otherstime) / 3600 )時間\((biztime+ittime+instime+otherstime) / 60)分")
                     Text("ビジネススキル：\(biztime / 3600)時間\(biztime / 60)分")
                     Text("IT・デジタル：\(ittime / 3660 )時間\(ittime / 60 )分")
                     Text("保険商品・サービス：\(instime / 3660 )時間\(instime / 60 )分")
                     Text("その他：\(otherstime / 3660 )時間\(otherstime / 60 )分")
                 }
                 .navigationTitle("勉強時間")
-                }.navigationViewStyle(StackNavigationViewStyle())
+                }
+                //.navigationViewStyle(StackNavigationViewStyle())
 
                 NavigationView{
                 List {
@@ -96,14 +104,12 @@ struct TotalView: View {
                     //文字色を指定
                         .foregroundColor(Color.white)
                     //幅高さを140に指定
-                        .frame(width: 140, height: 70)
+                        .frame(width: 140, height: 40)
                     //背景を指定
                         .background(Color("stopColor"))
                 } //ボタンここまで
             }//VSstockここまで
-            
 
-            
             //ナビゲーションにボタンを追加
             //.toolbar{
                 //ナビゲーションの左にボタンを追加

@@ -14,14 +14,7 @@ import Charts
 struct originalApp: App {
     var body: some Scene {
         WindowGroup {
-            RecordView()
-//            TopView()
+            TopPage()
         }
-    }
-}
-
-struct OriginalView: View {
-    var body: some View {
-        Text("Topページ")
     }
 }
