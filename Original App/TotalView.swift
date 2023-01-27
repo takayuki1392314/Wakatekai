@@ -23,11 +23,11 @@ import Charts
 struct TotalView: View {
 
     //割合算出するため、初期値を１秒に設定（０割を防ぐため）
-    @AppStorage("biz_time") var biztime = 100000000
+    @AppStorage("biz_time") var biztime = 1
     @AppStorage("it_time") var ittime = 1
     @AppStorage("ins_time") var instime = 1
     @AppStorage("others_time") var otherstime = 1
-    @AppStorage("total_time") var totaltime = 1
+    @AppStorage("total_time") var  totaltime = 1
     
     //時間表示に関する変数宣言
     @State var nowDate = Date()
@@ -41,6 +41,7 @@ struct TotalView: View {
         dateFormatter.locale = Locale(identifier: "ja_jp")
         //List全体の背景色の設定
         UITableView.appearance().backgroundColor = UIColor.white
+        totaltime = biztime + ittime
         }
     //円グラフ
     //class CircleChartViewController: UIViewController{
@@ -79,17 +80,20 @@ struct TotalView: View {
 
                 NavigationView{
                 List {
-                    Text("ビジネススキル：\(biztime / (biztime+ittime+instime+otherstime)*100) ％")
-                    Text("IT・デジタル　：\(ittime / (biztime+ittime+instime+otherstime)*100 )％")
-                    Text("保険商品・サービス：\(instime / (biztime+ittime+instime+otherstime)*100 )％")
-                    Text("その他：\(otherstime / (biztime+ittime+instime+otherstime)*100 )％")
+                    Text("ビジネススキル：\((biztime / totaltime)*100) %")
+                    Text("ビジネススキル：\((biztime / (biztime))*100) ％")
+                    Text("ビジネススキル：\(biztime + ittime)")
+                    Text("ビジネススキル： \(biztime)")
+                    Text("IT・デジタル　：\((ittime / (biztime + ittime + instime + otherstime))*100 )％")
+                    Text("ビジネススキル： \(ittime)")
+                    Text("保険商品・サービス：\((instime / (biztime + ittime + instime + otherstime))*100 )％")
+                    Text("その他：\((otherstime / (biztime + ittime + instime + otherstime))*100 )％")
                 }
                 .navigationTitle("勉強比率")
                 }.navigationViewStyle(StackNavigationViewStyle())
                 
                 Button(action: {
                     //ボタンをタップしたときのアクション
-
                     //タイマーをリセット
                     totaltime = biztime + ittime + instime + instime + otherstime
                     biztime = 1

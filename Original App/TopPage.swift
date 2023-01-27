@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import Charts
 
+
 struct TopPage: View {
     @State var isShowTotalView = false
     @State var isShowRecordView = false
